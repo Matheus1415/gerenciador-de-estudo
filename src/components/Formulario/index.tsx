@@ -5,8 +5,8 @@ import "./index.scss"
 class Formulario extends React.Component {
     render(){
         return(
-            <form action="">
-                <div>
+            <form action="" className="novaTarefa">
+                <div className="inputContainer">
                     <label htmlFor="tarefa">Adicionar um novo estudo</label>
                     <input type="text" 
                         name="tarefa" 
@@ -15,7 +15,7 @@ class Formulario extends React.Component {
                         required 
                     />
                 </div>
-                <div>
+                <div className="inputContainer">
                     <label htmlFor="tempo">Tempo</label>
                     <input 
                         type="time" 

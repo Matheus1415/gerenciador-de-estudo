@@ -4,7 +4,7 @@ import "./index.scss"
 class Botao extends React.Component {
     render(){
         return(
-            <button className="Botão"> botão</button>
+            <button className="botao"> botão</button>
         )
     }
 }
