@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cronometro from '../components/Cronometro';
 import Formulario from '../components/Formulario';
 import Lista from '../components/Lista';
@@ -16,6 +16,12 @@ function App() {
       selecionado: tarefa.id === tarefaSelecionada.id ? true : false
     })))
   }
+
+  useEffect(() => {
+    // Atualiza o estado selecionado quando o componente é montado
+    setSelecionado(tarefas.find(tarefa => tarefa.selecionado));
+  }, []);
+
   return (
     <div className={style.AppStyle}>
       <Formulario setTarefas={setTarefas} />
