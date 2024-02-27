@@ -1,3 +1,4 @@
+import React from 'react';
 import style from './Relogio.module.scss';
 
 interface Props {
@@ -7,8 +8,8 @@ interface Props {
 export default function Relogio({ tempo = 0 }: Props) {
   const minutos = Math.floor(tempo / 60);
   const segundos = tempo % 60;
-  const [minutoDezena, minutoUnidade] = String(minutos).padStart(2, '0');
-  const [segundoDezena, segundoUnidade] = String(segundos).padStart(2, '0');
+  const [minutoDezena, minutoUnidade] = String(minutos).padStart(2, '0').split('');
+  const [segundoDezena, segundoUnidade] = String(segundos).padStart(2, '0').split('');
   return (
     <>
       <span className={style.relogioNumero}>{minutoDezena}</span>

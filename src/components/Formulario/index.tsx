@@ -3,6 +3,7 @@ import { ITarefa } from '../../types/tarefa';
 import Botao from '../Botao';
 import style from './Formulario.module.scss';
 import { v4 as uuidv4 } from 'uuid';
+import ErroUser from '../ErrorUser';
 
 interface Props {
   setTarefas: React.Dispatch<React.SetStateAction<ITarefa[]>>
@@ -11,26 +12,41 @@ interface Props {
 function Formulario({ setTarefas }: Props) {
   const [tarefa, setTarefa] = useState("");
   const [tempo, setTempo] = useState("00:00");
+  const [erro, setErro] = useState<string>('');
+
   function adicionarTarefa(evento: React.FormEvent<HTMLFormElement>) {
     evento.preventDefault();
-    setTarefas(tarefasAntigas => 
-      [
-        ...tarefasAntigas,
-        {
-          tarefa,
-          tempo,
-          selecionado: false,
-          completado: false,
-          id: uuidv4()
-        }
-      ]
-    )
+    if(tarefa === ""){
+      mostrarErro("Parece que você não colocou o nome da tarefa")
+    }else{
+      setTarefas(tarefasAntigas => 
+        [
+          ...tarefasAntigas,
+          {
+            tarefa,
+            tempo,
+            selecionado: false,
+            completado: false,
+            id: uuidv4()
+          }
+        ]
+      )
+    }
+    
     setTarefa("");
     setTempo("00:00");
+
   }
+
+  
+    function mostrarErro(texto: string) {
+      setErro(texto);
+    }
+
 
   return (
     <form className={style.novaTarefa} onSubmit={adicionarTarefa}>
+      <ErroUser texto={erro} visivel={erro !== ''}/>
       <div className={style.inputContainer}>
         <label htmlFor="tarefa">
           Adicione um novo estudo
@@ -42,7 +58,6 @@ function Formulario({ setTarefas }: Props) {
           value={tarefa}
           onChange={evento => setTarefa(evento.target.value)}
           placeholder="O que você quer estudar"
-          required
         />
       </div>
       <div className={style.inputContainer}>
